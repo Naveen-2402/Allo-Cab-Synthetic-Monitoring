@@ -218,6 +218,235 @@ We will build a unified synthetic monitoring application designed to act as the 
 \end{itemize}
 \end{recbox}
 
+\vspace{1.5em}
+\begin{center}
+\includegraphics[width=\textwidth]{Images/archi.png}
+\end{center}
+
+% ================= SECTION 2: PROJECT OVERVIEW & OBJECTIVES =================
+\section{Project Overview \& Objectives}
+
+\subsection{Business Objectives}
+The primary objective is to transition the client from a reactive, decentralized operational model to a proactive, centralized one. Specifically, this platform will:
+
+\begin{recbox}{Core Objectives}{Strategic Platform Goals}
+\begin{itemize}
+  \item \textbf{Unify Operational Visibility:} Abstract the underlying complexity of the fragmented hosting environments by providing a single, standardized view of application health.
+  \item \textbf{Standardize Incident Response:} Eliminate ad-hoc communication by enforcing a centralized routing matrix that automatically identifies and notifies the correct application owner upon failure.
+  \item \textbf{Enhance Service Reliability:} Identify downtime and degradation from the end-user's perspective before external customers report the issue.
+\end{itemize}
+\end{recbox}
+
+\subsection{Success Metrics (KPIs)}
+The success of this implementation will be measured against the following targets:
+
+\begin{recbox}{Performance Targets}{Key Performance Indicators}
+\begin{itemize}
+  \item \textbf{Mean Time to Detect (MTTD):} Reduce time to detect application failures to under 5 minutes for tier-1 applications.
+  \item \textbf{Proactive Detection Rate:} Ensure >95\% of application outages are detected by the synthetic monitoring system before end-users report them via support channels.
+  \item \textbf{Alert Delivery Latency:} Route and deliver SMS/Email notifications within 60 seconds of a validated failure.
+  \item \textbf{Platform Availability:} The monitoring platform itself must maintain 99.99\% uptime to remain a reliable source of truth.
+\end{itemize}
+\end{recbox}
+
+\subsection{Key Stakeholders}
+\begin{itemize}
+  \item \textbf{Executive IT Leadership:} Requires high-level SLA reporting and unified visibility to ensure disparate hosting investments are performing as expected.
+  \item \textbf{Site Reliability Engineering (SRE) / NOC Teams:} Requires the real-time global status board to monitor the ecosystem and triage cross-platform incidents.
+  \item \textbf{Application Owners \& Development Teams:} Requires accurate, immediate alerts containing actionable forensic data (error codes, latency spikes) directed to their specific channels.
+\end{itemize}
+
+
+% ================= SECTION 3: SCOPE =================
+\section{Scope}
+
+\subsection{In-Scope}
+The initial release of the platform will include:
+
+\begin{recbox}{Included Capabilities}{In-Scope Features}
+\begin{itemize}
+  \item \textbf{Outside-In Monitoring:} Execution of synthetic checks including HTTP/HTTPS endpoints, TCP port checks, DNS resolution, and multi-step REST API sequences.
+  \item \textbf{Alert Routing Engine:} Configurable retry logic (e.g., "fail twice before alerting") and a tagging system to map target applications to specific owners.
+  \item \textbf{Notification Channels:} Outbound integration for SMS, Email, and generic Webhooks to support standard ITSM tools.
+  \item \textbf{Unified Dashboard:} A centralized, web-based UI for real-time status visualization, historical latency reporting, and administrative configuration.
+  \item \textbf{Role-Based Access Control (RBAC):} Basic segregation between global administrators and read-only stakeholders.
+\end{itemize}
+\end{recbox}
+
+\subsection{Out-of-Scope}
+To maintain project velocity and system focus, the following are explicitly excluded from this phase:
+
+\begin{issuebox}{Explicit Exclusions}{Out-of-Scope Items}
+\begin{itemize}
+  \item \textbf{Application Performance Monitoring (APM):} Internal code profiling, memory leak detection, or database query analysis.
+  \item \textbf{Infrastructure Monitoring:} Polling internal server metrics like CPU usage, RAM utilization, or disk space across the heterogeneous hosts.
+  \item \textbf{Log Aggregation:} Ingesting and searching application logs (e.g., Splunk/ELK stack functionality).
+  \item \textbf{Auto-Remediation:} Automated execution of recovery scripts (e.g., restarting a crashed container or rebooting a server).
+\end{itemize}
+\end{issuebox}
+
+% ================= SECTION 4: USER PERSONAS & ROLES =================
+\section{User Personas \& Roles}
+This section outlines the primary users interacting with the Synthetic Monitoring Platform, defining their responsibilities, primary goals, and the specific system permissions required to support their workflows.
+
+\subsection{System Administrators (The ``Configurators'')}
+\begin{recbox}{Persona 01}{System Administrator Profile}
+\textbf{Profile:} IT Operations engineers, SREs, or NOC administrators who are responsible for the overarching health of the monitoring platform itself.\\[8pt]
+\textbf{Responsibilities:} Adding and deprecating monitored endpoints as the client's heterogeneous ecosystem evolves; configuring global routing rules; managing integration credentials (e.g., Twilio API keys, SMTP servers); and administering user access.\\[8pt]
+\textbf{Primary Needs:}
+\begin{itemize}
+  \item Bulk configuration capabilities to easily onboard new applications.
+  \item Deep diagnostic tools to troubleshoot why a specific synthetic probe might be failing (e.g., SSL certificate errors vs. DNS resolution failures).
+  \item Full CRUD (Create, Read, Update, Delete) permissions across all system modules.
+\end{itemize}
+\vspace{6pt}
+\textbf{Viewpoint:} Needs a comprehensive, unrestricted view of the entire global matrix, including backend platform health.
+\end{recbox}
+
+\subsection{Application Owners (The ``Responders'')}
+\begin{recbox}{Persona 02}{Application Owner Profile}
+\textbf{Profile:} Lead developers, product managers, or specific business-unit IT leads who own individual applications hosted within the disparate environments.\\[8pt]
+\textbf{Responsibilities:} Receiving automated incident alerts, triaging the reported downtime, and orchestrating the internal fix.\\[8pt]
+\textbf{Primary Needs:}
+\begin{itemize}
+  \item Highly accurate alerting with minimal false positives (alert fatigue is their biggest risk).
+  \item Actionable forensic data delivered directly in the notification payload (e.g., ``HTTP 502 Bad Gateway at 10:04 AM on AWS us-east-1'').
+  \item Read-only access to the dashboard, specifically filtered to show only the applications assigned to their team.
+\end{itemize}
+\vspace{6pt}
+\textbf{Viewpoint:} Needs a scoped, focused view of their specific assets and historical SLA performance without being distracted by unrelated infrastructure.
+\end{recbox}
+
+\subsection{Executive Stakeholders (The ``Reviewers'')}
+\begin{recbox}{Persona 03}{Executive Stakeholder Profile}
+\textbf{Profile:} CIOs, CTOs, or IT Directors who need to monitor the aggregate performance of the business's technology investments.\\[8pt]
+\textbf{Responsibilities:} Evaluating overarching service level agreements (SLAs), managing vendor performance across the different hosting providers, and reporting on business continuity.\\[8pt]
+\textbf{Primary Needs:}
+\begin{itemize}
+  \item High-level, visually intuitive status boards indicating red/yellow/green health across broad categories (e.g., ``All E-Commerce Apps'').
+  \item Automated roll-up reports showing weekly or monthly uptime percentages (e.g., 99.99\%) across the entire ecosystem.
+  \item Zero configuration capabilities to prevent accidental modifications to the monitoring rules.
+\end{itemize}
+\vspace{6pt}
+\textbf{Viewpoint:} Needs macro-level visibility and historical trend data without the technical noise of individual API payloads or trace routes.
+\end{recbox}
+
+% ================= SECTION 5: FUNCTIONAL REQUIREMENTS =================
+\section{Functional Requirements (The Core Engine)}
+
+\subsection{Probe \& Check Execution Engine}
+The engine must independently simulate and validate user traffic across all internal and external hosting environments.
+
+\begin{recbox}{Execution Engine}{Simulation \& Validation}
+\begin{itemize}
+  \item \textbf{Protocol Support:} The system must natively execute HTTP/HTTPS (GET/POST/PUT/DELETE), TCP port checks, DNS resolution validation, and ping (ICMP).
+  \item \textbf{Multi-Step API Sequences:} Must support chaining API calls, extracting tokens from the first response (e.g., OAuth login) and passing them into subsequent requests to validate complex workflows.
+  \item \textbf{Execution Parameters:} Administrators must be able to configure check intervals on a per-app basis (e.g., 1-minute, 5-minute, or custom cron schedules).
+  \item \textbf{Geographic Distribution:} Probes must be deployable across multiple geographic regions or network zones to validate availability and measure latency from different origin points.
+\end{itemize}
+\end{recbox}
+
+\subsection{Alerting \& Routing Matrix}
+The system must eliminate false positives and ensure failures are routed directly to the actionable party.
+
+\begin{recbox}{Incident Routing}{Alerts \& Notifications}
+\begin{itemize}
+  \item \textbf{Validation \& Deduplication Logic:} The system must enforce configurable ``retry'' thresholds (e.g., ``require 2 consecutive failures from 2 different geographic locations'') before generating an alert.
+  \item \textbf{Tag-Based Routing:} Every application will be assigned metadata tags (e.g., Owner: Billing, Priority: P1). The routing engine must dynamically evaluate these tags against the failure payload to determine the notification destination.
+  \item \textbf{Notification Channels:} The engine must push payloads via SMTP (Email), SMS gateways (e.g., Twilio), and standard Webhooks to integrate with ITSM platforms (e.g., ServiceNow, Jira, Slack).
+  \item \textbf{Escalation Policies:} If an alert remains unacknowledged for a configurable timeframe (e.g., 15 minutes), the system must automatically escalate the notification to a secondary contact or channel.
+\end{itemize}
+\end{recbox}
+
+\subsection{Unified Service Dashboard}
+The UI serves as the single pane of glass, masking the complexity of the heterogeneous hosting infrastructure.
+
+\begin{recbox}{User Interface}{Single Pane of Glass}
+\begin{itemize}
+  \item \textbf{Global Status Board:} A real-time, color-coded (Red/Yellow/Green) matrix displaying the health of all monitored applications, filterable by host provider, environment, or tag.
+  \item \textbf{Forensic Incident Logs:} Clicking into a failed check must reveal the exact error payload, response code (e.g., 502 Bad Gateway), response latency, and SSL certificate status.
+  \item \textbf{SLA \& Reporting:} The system must automatically calculate uptime percentages and response-time averages over 7, 30, and 90-day periods, exportable as PDF/CSV for executive review.
+  \item \textbf{Configuration Interface:} A centralized UI for System Administrators to rapidly create, duplicate, modify, or pause synthetic checks without writing code.
+\end{itemize}
+\end{recbox}
+
+\subsection{User \& Role Management (RBAC)}
+\begin{recbox}{Access Control}{Security \& Roles}
+\begin{itemize}
+  \item \textbf{Role Segregation:} The system must enforce least-privilege access using three distinct tiers: System Administrator (Full CRUD), Application Owner (Read-only + Alert Acknowledgment), and Executive Stakeholder (Read-only dashboards).
+  \item \textbf{Single Sign-On (SSO):} Must integrate with the client's existing identity provider (e.g., Okta, Azure AD) via SAML 2.0 or OIDC.
+\end{itemize}
+\end{recbox}
+
+
+% ================= SECTION 6: NON-FUNCTIONAL REQUIREMENTS =================
+\section{Non-Functional Requirements}
+
+\subsection{Performance \& Scalability}
+\begin{issuebox}{System Constraints}{Performance Targets}
+\begin{itemize}
+  \item \textbf{High Throughput:} The message queue and execution engine must horizontally scale to support a minimum of 10,000 synthetic checks per minute.
+  \item \textbf{Low Latency Processing:} Internal processing time (from a probe detecting a failure to the system queuing the alert) must not exceed 500 milliseconds.
+\end{itemize}
+\end{issuebox}
+
+\subsection{Security \& Compliance}
+\begin{issuebox}{Compliance}{Security Standards}
+\begin{itemize}
+  \item \textbf{Data Encryption:} All data at rest must be encrypted using AES-256. All data in transit must utilize TLS 1.2 or higher.
+  \item \textbf{Secrets Management:} Authentication credentials used by the probes (e.g., API tokens, basic auth passwords) must be stored in a centralized, encrypted vault and injected only at runtime.
+  \item \textbf{Network Isolation:} Internal runner nodes (probes checking private apps behind the firewall) must operate on a strict outbound-only connection model to prevent unauthorized ingress into the client's network.
+\end{itemize}
+\end{issuebox}
+
+\subsection{Availability \& Reliability}
+\begin{issuebox}{Reliability}{Uptime \& Redundancy}
+\begin{itemize}
+  \item \textbf{High Availability (HA):} The monitoring system's control plane and database tier must be deployed in an active-active, multi-availability-zone configuration.
+  \item \textbf{Uptime Guarantee:} The system itself must achieve an SLA of 99.99\%. If a specific probe runner goes offline, the system must automatically redistribute its assigned checks to healthy runners.
+\end{itemize}
+\end{issuebox}
+
+% ================= SECTION 7: DEPENDENCIES & ASSUMPTIONS =================
+\section{Dependencies \& Assumptions}
+
+\subsection{Third-Party Integrations}
+The successful alerting and incident routing mechanics of the platform rely heavily on the availability and configuration of the following external services:
+
+\begin{issuebox}{External Dependencies}{Integration Requirements}
+\begin{itemize}
+  \item \textbf{Notification Gateways:} The client must provide active, funded accounts and API keys for outbound SMS delivery (e.g., Twilio, AWS SNS) and an SMTP relay for email notifications.
+  \item \textbf{ITSM/Incident Management:} For webhook integrations to function, the client's internal ticketing or paging systems (e.g., ServiceNow, PagerDuty, Jira Service Management) must be capable of receiving standard JSON payloads and exposing secure endpoint URLs.
+  \item \textbf{Identity Management:} The client must provide integration details for an existing SAML 2.0 or OIDC compliant Identity Provider (IdP) to fulfill the SSO requirement.
+\end{itemize}
+\end{issuebox}
+
+\subsection{Technical Assumptions}
+\begin{issuebox}{System Assumptions}{Technical Prerequisites}
+\begin{itemize}
+  \item \textbf{Endpoint Testability:} We assume the disparate applications across the heterogeneous hosting environments expose valid, reachable endpoints (e.g., /health, standard HTTP landing pages, or dedicated API routes) that can be queried without triggering unintended state changes (like creating duplicate database records).
+  \item \textbf{Firewall Egress/Ingress:} For probes deployed inside the client's private network boundaries, we assume the client's network security team will grant the necessary firewall exceptions to allow outbound metric reporting to the central platform queue.
+  \item \textbf{Hosting Agnosticism:} We assume the monitoring system does not require agents to be installed on the client's host machines, maintaining the strict outside-in architecture.
+\end{itemize}
+\end{issuebox}
+
+
+% ================= SECTION 8: ACCEPTANCE CRITERIA =================
+\section{Acceptance Criteria}
+
+\subsection{User Acceptance Testing (UAT) Parameters}
+To sign off on the platform's delivery, the system must successfully pass the following scenario-based tests during the UAT phase:
+
+\begin{recbox}{UAT Parameters}{Scenario-Based Sign-off}
+\begin{itemize}
+  \item \textbf{Configuration \& Execution:} A System Administrator can successfully create a new multi-step API check through the UI, and the system begins executing it across three distinct geographic runners within 2 minutes.
+  \item \textbf{False-Positive Suppression:} A probe intentionally encounters a single HTTP 500 error, but the secondary geographic check succeeds. The system logs the anomaly but correctly suppresses the alert based on the 2-failure retry rule.
+  \item \textbf{Routing \& Notification SLA:} A confirmed, continuous failure of a tier-1 application successfully triggers the routing matrix, delivering an SMS and Webhook payload to the designated Application Owner within 60 seconds of the validation logic completing.
+  \item \textbf{RBAC Enforcement:} A user authenticated as an Application Owner attempts to modify the global check frequency of an endpoint and is successfully blocked by the system interface.
+  \item \textbf{Dashboard Accuracy:} The global status board instantly updates from Green to Red upon a validated failure, and the subsequent forensic log accurately displays the simulated HTTP trace route and response payload.
+\end{itemize}
+\end{recbox}
+
 \vfill
 \noindent{\color{linegray}\rule{\linewidth}{0.6pt}}\\[6pt]
 \fontsize{8.3}{10}\selectfont\textcolor{softgray}{Agam AI Labs \ -- \ Confidential. Prepared exclusively for Client Stakeholders.}

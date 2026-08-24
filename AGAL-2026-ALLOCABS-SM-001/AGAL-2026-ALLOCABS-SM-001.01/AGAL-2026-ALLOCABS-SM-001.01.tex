@@ -249,13 +249,6 @@ The success of this implementation will be measured against the following target
 \end{itemize}
 \end{recbox}
 
-\subsection{Key Stakeholders}
-\begin{itemize}
-  \item \textbf{Executive IT Leadership:} Requires high-level SLA reporting and unified visibility to ensure disparate hosting investments are performing as expected.
-  \item \textbf{Site Reliability Engineering (SRE) / NOC Teams:} Requires the real-time global status board to monitor the ecosystem and triage cross-platform incidents.
-  \item \textbf{Application Owners \& Development Teams:} Requires accurate, immediate alerts containing actionable forensic data (error codes, latency spikes) directed to their specific channels.
-\end{itemize}
-
 
 % ================= SECTION 3: SCOPE =================
 \section{Scope}
@@ -431,21 +424,21 @@ The successful alerting and incident routing mechanics of the platform rely heav
 \end{issuebox}
 
 
-% ================= SECTION 8: ACCEPTANCE CRITERIA =================
-\section{Acceptance Criteria}
+% % ================= SECTION 8: ACCEPTANCE CRITERIA =================
+% \section{Acceptance Criteria}
 
-\subsection{User Acceptance Testing (UAT) Parameters}
-To sign off on the platform's delivery, the system must successfully pass the following scenario-based tests during the UAT phase:
+% \subsection{User Acceptance Testing (UAT) Parameters}
+% To sign off on the platform's delivery, the system must successfully pass the following scenario-based tests during the UAT phase:
 
-\begin{recbox}{UAT Parameters}{Scenario-Based Sign-off}
-\begin{itemize}
-  \item \textbf{Configuration \& Execution:} A System Administrator can successfully create a new multi-step API check through the UI, and the system begins executing it across three distinct geographic runners within 2 minutes.
-  \item \textbf{False-Positive Suppression:} A probe intentionally encounters a single HTTP 500 error, but the secondary geographic check succeeds. The system logs the anomaly but correctly suppresses the alert based on the 2-failure retry rule.
-  \item \textbf{Routing \& Notification SLA:} A confirmed, continuous failure of a tier-1 application successfully triggers the routing matrix, delivering an SMS and Webhook payload to the designated Application Owner within 60 seconds of the validation logic completing.
-  \item \textbf{RBAC Enforcement:} A user authenticated as an Application Owner attempts to modify the global check frequency of an endpoint and is successfully blocked by the system interface.
-  \item \textbf{Dashboard Accuracy:} The global status board instantly updates from Green to Red upon a validated failure, and the subsequent forensic log accurately displays the simulated HTTP trace route and response payload.
-\end{itemize}
-\end{recbox}
+% \begin{recbox}{UAT Parameters}{Scenario-Based Sign-off}
+% \begin{itemize}
+%   \item \textbf{Configuration \& Execution:} A System Administrator can successfully create a new multi-step API check through the UI, and the system begins executing it across three distinct geographic runners within 2 minutes.
+%   \item \textbf{False-Positive Suppression:} A probe intentionally encounters a single HTTP 500 error, but the secondary geographic check succeeds. The system logs the anomaly but correctly suppresses the alert based on the 2-failure retry rule.
+%   \item \textbf{Routing \& Notification SLA:} A confirmed, continuous failure of a tier-1 application successfully triggers the routing matrix, delivering an SMS and Webhook payload to the designated Application Owner within 60 seconds of the validation logic completing.
+%   \item \textbf{RBAC Enforcement:} A user authenticated as an Application Owner attempts to modify the global check frequency of an endpoint and is successfully blocked by the system interface.
+%   \item \textbf{Dashboard Accuracy:} The global status board instantly updates from Green to Red upon a validated failure, and the subsequent forensic log accurately displays the simulated HTTP trace route and response payload.
+% \end{itemize}
+% \end{recbox}
 
 \vfill
 \noindent{\color{linegray}\rule{\linewidth}{0.6pt}}\\[6pt]

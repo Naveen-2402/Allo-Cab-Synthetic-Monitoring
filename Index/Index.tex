@@ -1,0 +1,154 @@
+\documentclass[11pt,a4paper]{article}
+
+% --------------------------------------------------
+% Packages
+% --------------------------------------------------
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% --------------------------------------------------
+% Colors
+% --------------------------------------------------
+\definecolor{Navy}{HTML}{17365D}
+\definecolor{Gray}{HTML}{64748B}
+\definecolor{Dark}{HTML}{1E293B}
+\definecolor{LightGray}{HTML}{F8FAFC}
+
+% --------------------------------------------------
+% Hyperlinks Setup
+% --------------------------------------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=Navy,
+    urlcolor=Navy,
+    pdftitle={Allo Cabs -- Folder Index}
+}
+
+% --------------------------------------------------
+% Custom Index Formatting Commands
+% --------------------------------------------------
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+% Command for Folder / Project Section
+\newcommand{\indexfolder}[3]{
+    \vspace{2.5em}\noindent
+    {\Large\bfseries\color{Navy} #1} \hfill {\small\ttfamily\color{Gray} #2}
+    \par\vspace{0.2em}
+    {\color{Navy}\hrule height 0.8pt}
+    \vspace{0.4em}
+    \noindent{\small\color{Dark}\textit{#3}}
+    \par\vspace{1em}
+}
+
+% Command for Sub-folder grouping
+\newcommand{\indexsubfolder}[2]{
+    \vspace{0.8em}\noindent\hspace*{1cm}%
+    \textbf{\texttt{#1}} --- \textbf{\textsf{#2}}\par\vspace{0.4em}
+}
+
+% Command for File / Version Entry with Dotted Leader
+\newcommand{\indexfile}[2]{
+    \noindent\hspace*{1cm}%
+    \textbf{\texttt{#1}} \dotfill{} \textsf{#2}\par\vspace{0.4em}
+}
+
+% Command for Sub-file Entry (Extra Indent)
+\newcommand{\indexsubfile}[2]{
+    \noindent\hspace*{2cm}%
+    \textbf{\texttt{#1}} \dotfill{} \textsf{#2}\par\vspace{0.4em}
+}
+
+% Command for Shared Assets Section
+\newcommand{\assetfolder}[2]{
+    \vspace{2.5em}\noindent
+    {\Large\bfseries\color{Navy} #1} \hfill {\small\ttfamily\color{Gray} #2}
+    \par\vspace{0.2em}
+    {\color{Navy}\hrule height 0.8pt}
+    \par\vspace{1em}
+}
+
+\begin{document}
+
+% ==================================================
+% DOCUMENT HEADER
+% ==================================================
+\begin{center}
+    {\Huge\bfseries\color{Navy} Allo Cabs}\\[0.5em]
+    {\LARGE\color{Dark} Master Folder Index}\\[1em]
+    {\small\color{Gray} Project, document version, and deliverable mapping}\\[0.5em]
+    {\small\textbf{Repository: } \texttt{\textasciitilde/latex/Allo\_Cabs}}
+\end{center}
+
+\vspace{1em}
+
+% ==================================================
+% INDEX CONTENT
+% ==================================================
+
+\indexfolder{Agent Factory --- Review \& Enhancement Report}
+            {AF-2026-ALLOCABS-001}
+            {Client-facing review and enhancement report.}
+
+\indexfile{AF-2026-ALLOCABS-001.01}{Client Draft --- Review \& Enhancement Report}
+
+
+\indexfolder{Agam AI Labs --- Review \& Enhancement Report}
+            {AGAL-2026-ALLOCABS-001}
+            {Client-facing review and enhancement report.}
+
+\indexfile{AGAL-2026-ALLOCABS-001.01}{Client Draft --- Review \& Enhancement Report}
+\indexfile{AGAL-2026-ALLOCABS-001.02}{Enhanced Version --- By Content and Tags}
+
+
+\indexfolder{Agam AI Labs --- Product Enhancement PPT}
+            {AGAL-2026-ALLOCABS-002}
+            {Presentation development from technical foundation to market-integrated versions.}
+
+\indexfile{AGAL-2026-ALLOCABS-002.01}{Technical Base Version}
+\indexfile{AGAL-2026-ALLOCABS-002.02}{Integrated Version --- Market + Technical Analysis}
+\indexfile{AGAL-2026-ALLOCABS-002.03}{Presentation-Ready Version}
+
+
+\indexfolder{Agam AI Labs --- Code Assessments}
+            {AGAL-2026-ALLOCABS-003}
+            {Technical codebase rapid assessments and access checklist.}
+
+\indexsubfolder{AGAL-2026-ALLOCABS-003.01}{WebApp Rapid Codebase Assessment}
+\indexsubfile{AGAL-2026-ALLOCABS-003.01.01}{By Hari, Agam}
+\indexsubfile{AGAL-2026-ALLOCABS-003.01.02}{Enhanced \& Add-on Details}
+
+\indexsubfolder{AGAL-2026-ALLOCABS-003.02}{Mobile App Rapid Codebase Assessment}
+\indexsubfile{AGAL-2026-ALLOCABS-003.02.01}{By Arif, Agam}
+\indexsubfile{AGAL-2026-ALLOCABS-003.02.02}{Enhanced \& Add-on Details}
+
+\indexsubfolder{AGAL-2026-ALLOCABS-003.03}{Project Access \& Credentials Checklist}
+\indexsubfile{AGAL-2026-ALLOCABS-003.03.01}{By Hari \& Arif, Agam}
+\indexsubfile{AGAL-2026-ALLOCABS-003.03.02}{Enhanced \& Add-on Details}
+
+
+% ==================================================
+% SHARED ASSETS
+% ==================================================
+
+\assetfolder{Shared Assets}
+            {/Images/}
+
+\indexfile{agamailabs.png}{Agam AI Labs branding asset}
+\indexfile{logo.png}{Primary logo}
+\indexfile{logo - black.png}{Black / monochrome logo variant}
+
+
+% ==================================================
+% END OF INDEX
+% ==================================================
+\vfill
+\begin{center}
+    {\footnotesize\color{Gray} --- End of Index ---}
+\end{center}
+
+\end{document}

@@ -1,0 +1,225 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- FONTS & ENCODING ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+
+% ---------- LAYOUT & PACKAGES ----------
+\usepackage[a4paper,top=2.3cm,bottom=2.3cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{ragged2e}
+\usepackage{xstring}
+\usepackage{setspace}
+\usepackage{pgfgantt} 
+
+% ---------- BRAND COLORS (Palette A: Navy & Amber) ----------
+\definecolor{navy}{HTML}{1B2A6B}
+\definecolor{navydark}{HTML}{10193F}
+\definecolor{amber}{HTML}{F2994A}
+\definecolor{ink}{HTML}{1A1A1A}
+\definecolor{softgray}{HTML}{6E6E6E}
+\definecolor{mutedblue}{HTML}{9AA6CE}
+\definecolor{linegray}{HTML}{E7E7E7}
+\definecolor{tabletint}{HTML}{F8F9FC} 
+
+\hypersetup{colorlinks=true, linkcolor=ink, urlcolor=navy}
+
+% ---------- SECTION STYLE (High-End Agency Design) ----------
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{19}{24}\selectfont\color{navydark}}
+  {\textcolor{amber}{\fontsize{24}{24}\selectfont\thesection}\hspace{0.5em}\textcolor{linegray}{\rule[-2pt]{1.5pt}{18pt}}\hspace{0.2em}}
+  {0em}
+  {}
+  [\vspace{6pt}\rlap{\textcolor{amber}{\rule{2.5cm}{1.5pt}}}\textcolor{linegray}{\rule{\linewidth}{0.5pt}}]
+\titlespacing*{\section}{0pt}{2.4em}{1.2em}
+
+% Subsection: Clean matching Amber number
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{13}{16}\selectfont\color{navy}}
+  {\textcolor{amber}{\thesubsection}}
+  {0.8em}
+  {}
+\titlespacing*{\subsection}{0pt}{2em}{1em}
+
+% ---------- HEADER / FOOTER (single hairline, minimal) ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[L]{\fontsize{7.6}{10}\selectfont\color{softgray}\textsc{Agam AI Labs}}
+\fancyhead[R]{\fontsize{7.6}{10}\selectfont\color{softgray}\textsc{Synthetic Monitoring -- BRD}}
+\fancyfoot[L]{\fontsize{7.6}{10}\selectfont\color{softgray}\textsc{Confidential}}
+\fancyfoot[R]{\fontsize{7.6}{10}\selectfont\color{amber}\thepage}
+\renewcommand{\headrule}{{\color{linegray}\hrule height 0.6pt}}
+
+
+% =====================================================
+% ---------- UI/UX ELEMENTS: BRAND-ALIGNED CHIPS ----------
+% =====================================================
+
+\newtcbox{\uibadge}[3][navy]{on line, arc=2.5pt, colback=#2, colframe=#1, boxrule=0.5pt,
+  fontupper=\bfseries\sffamily\fontsize{7.5}{7.5}\selectfont,
+  colupper=#3, boxsep=0pt, left=6pt, right=6pt, top=3pt, bottom=3pt}
+
+\newcommand{\severity}[1]{%
+  \ifstrequal{#1}{High}{\uibadge[navydark]{navydark}{white}{High priority}}{%
+  \ifstrequal{#1}{Medium}{\uibadge[amber]{amber!15}{navydark}{Medium priority}}{%
+  \uibadge[mutedblue]{mutedblue!15}{navydark}{Low priority}}}%
+}
+
+\newcommand{\pri}[1]{%
+  \ifstrequal{#1}{High}{\uibadge[navydark]{navydark}{white}{High}}{%
+  \ifstrequal{#1}{Medium}{\uibadge[amber]{amber!15}{navydark}{Medium}}{%
+  \uibadge[mutedblue]{mutedblue!15}{navydark}{Low}}}%
+}
+
+\newcommand{\thd}[1]{\textsc{\bfseries\color{white}\fontsize{8.6}{8.6}\selectfont #1}}
+
+
+% =====================================================
+% ---------- CALLOUT BLOCKS (Sharp Modern Shadows & Mini-Chips) ----------
+% =====================================================
+
+\newtcolorbox{issuebox}[2]{
+  enhanced, colback=white, colframe=linegray, boxrule=0.5pt,
+  borderline west={4pt}{0pt}{navy}, 
+  arc=2pt, outer arc=2pt, breakable, 
+  top=14pt, bottom=14pt, left=16pt, right=16pt,
+  before skip=18pt, after skip=18pt,
+  shadow={3pt}{-3pt}{0pt}{navy!10}, 
+  before upper={%
+    \tcbox[on line, boxsep=0pt, boxrule=0pt, colback=navy!8, colframe=navy!8, left=5pt, right=5pt, top=3pt, bottom=3pt, arc=2pt]{\sffamily\bfseries\fontsize{8}{10}\selectfont\color{navy}\MakeUppercase{#1}}\\[8pt]
+    {\bfseries\fontsize{14}{16}\selectfont\color{navydark}#2}\\[6pt]
+    {\color{linegray}\hrule height 0.5pt}\vspace{10pt}
+  }
+}
+
+\newtcolorbox{recbox}[2]{
+  enhanced, colback=white, colframe=linegray, boxrule=0.5pt,
+  borderline west={4pt}{0pt}{amber}, 
+  arc=2pt, outer arc=2pt, breakable, 
+  top=14pt, bottom=14pt, left=16pt, right=16pt,
+  before skip=18pt, after skip=18pt,
+  shadow={3pt}{-3pt}{0pt}{amber!15}, 
+  before upper={%
+    \tcbox[on line, boxsep=0pt, boxrule=0pt, colback=amber!15, colframe=amber!15, left=5pt, right=5pt, top=3pt, bottom=3pt, arc=2pt]{\sffamily\bfseries\fontsize{8}{10}\selectfont\color{amber!90!black}\MakeUppercase{#1}}\\[8pt]
+    {\bfseries\fontsize{14}{16}\selectfont\color{navydark}#2}\\[6pt]
+    {\color{linegray}\hrule height 0.5pt}\vspace{10pt}
+  }
+}
+
+\setlist[itemize]{label=\textcolor{amber}{\rule{3.5pt}{3.5pt}}, leftmargin=1.8em, itemsep=7pt, topsep=8pt}
+\setlist[enumerate]{label=\textbf{\textcolor{navy}{\arabic*.}}, leftmargin=1.8em, itemsep=7pt, topsep=8pt}
+\setstretch{1.18}
+\arrayrulecolor{linegray}
+
+% =====================================================
+\begin{document}
+
+% ================= COVER PAGE =================
+\begin{titlepage}
+\newgeometry{margin=0cm}
+\begingroup
+\pagecolor{navy}
+\color{white}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[navy] (current page.north west) rectangle (current page.south east);
+
+  \draw[amber!55, line width=0.9pt]
+     ([xshift=-2cm,yshift=1.5cm]current page.south west) to[out=70,in=200]
+     ([xshift=4cm,yshift=9cm]current page.south west) to[out=20,in=250]
+     (current page.north east);
+  \draw[mutedblue, line width=0.5pt, opacity=0.35]
+     ([xshift=1cm,yshift=0cm]current page.south west) to[out=75,in=205]
+     ([xshift=6cm,yshift=10.5cm]current page.south west) to[out=25,in=250]
+     ([xshift=-1cm]current page.north east);
+
+  \node[anchor=north west, fill=white, rounded corners=3pt, inner sep=9pt]
+     at ([xshift=2.6cm,yshift=-2.6cm]current page.north west)
+     {\includegraphics[width=2.3cm]{../../Images/agamailabs.png}}; % Ensure logo path is correct
+
+  \draw[amber, line width=1.6pt]
+     ([xshift=2.6cm,yshift=-11.6cm]current page.north west) --
+     ([xshift=2.6cm,yshift=-17.9cm]current page.north west);
+
+  \node[anchor=north west, text=amber] at ([xshift=3.15cm,yshift=-11.9cm]current page.north west)
+     {\fontsize{10.5}{13}\selectfont\textsc{Business Requirements Document}};
+
+  \node[anchor=north west, text=white, align=left, text width=13.8cm]
+     at ([xshift=3.15cm,yshift=-13.1cm]current page.north west)
+     {\fontsize{33}{39}\selectfont\bfseries Synthetic Monitoring\\ Platform};
+
+  \node[anchor=north west, text=mutedblue, align=left, text width=11.5cm]
+     at ([xshift=3.15cm,yshift=-17.3cm]current page.north west)
+     {\fontsize{11.5}{16}\selectfont Core objectives, scope, and functional requirements.};
+
+  \node[anchor=south west, text=mutedblue, align=left, text width=15.8cm]
+     at ([xshift=2.6cm,yshift=2.9cm]current page.south west)
+     {\fontsize{9}{14}\selectfont\textsc{Prepared for} \ Client Stakeholders \quad\textbullet\quad \textsc{Prepared by} \ Agam AI Labs \quad\textbullet\quad August 24, 2026};
+
+  \node[anchor=south west, text=mutedblue] at ([xshift=2.6cm,yshift=1.5cm]current page.south west)
+     {\fontsize{8}{10}\selectfont\textsc{Ref. AGAL-2026-SYNTH-001.01.tex \ -- \ Client Draft}};
+
+\end{tikzpicture}
+
+\endgroup
+\nopagecolor
+\restoregeometry
+\end{titlepage}
+
+% ================= TABLE OF CONTENTS =================
+\thispagestyle{empty}
+\begin{center}
+\includegraphics[width=2.6cm]{../../Images/agamailabs.png}
+\end{center}
+\vspace{0.6em}
+\tableofcontents
+\newpage
+
+% ================= SECTION 1: EXECUTIVE SUMMARY =================
+\section{Executive Summary}
+
+\subsection{Purpose of the Document}
+This Business Requirements Document (BRD) defines the core objectives, scope, and functional requirements for a centralized Synthetic Monitoring Platform. It serves as the foundational agreement between the engineering team and the client stakeholders, ensuring alignment on what the system will do, who will use it, and how it will integrate with existing workflows before development begins.
+
+\subsection{Business Problem Statement}
+The client currently operates a fragmented application ecosystem. Services are deployed across a heterogeneous mix of hosting environments, cloud providers, and infrastructure types. This fragmentation creates a critical visibility gap:
+
+\begin{issuebox}{Ecosystem Challenges}{Critical Visibility Gaps}
+\begin{itemize}
+  \item \textbf{Siloed Monitoring:} Traditional infrastructure monitoring is locked within individual hosting providers, making it impossible to see the global health of the ecosystem.
+  \item \textbf{Delayed Detection:} Because there is no outside-in verification, the client often relies on end-users to report downtime or performance degradation.
+  \item \textbf{Fragmented Alerting:} When an issue does occur, there is no standardized mechanism to identify the failing application, determine the correct owner, and immediately route an alert to them.
+\end{itemize}
+\end{issuebox}
+
+\subsection{Proposed Solution}
+We will build a unified synthetic monitoring application designed to act as the single source of truth for application health, regardless of where those applications are hosted.
+
+\begin{recbox}{Strategic Approach}{Unified Architecture}
+\begin{itemize}
+  \item \textbf{Active Simulation:} The system will utilize distributed probes to continuously simulate external user traffic (pings, HTTP requests, API calls) against the client's global application roster.
+  \item \textbf{Centralized Visibility:} All uptime and latency data will be aggregated into a single, unified dashboard, abstracting away the underlying heterogeneous hosting environments.
+  \item \textbf{Intelligent Routing:} Upon detecting a failure, a centralized rules engine will validate the downtime and instantly route automated notifications (via SMS, email, or webhook) directly to the specific application owners, drastically reducing the Mean Time to Detect (MTTD).
+\end{itemize}
+\end{recbox}
+
+\vfill
+\noindent{\color{linegray}\rule{\linewidth}{0.6pt}}\\[6pt]
+\fontsize{8.3}{10}\selectfont\textcolor{softgray}{Agam AI Labs \ -- \ Confidential. Prepared exclusively for Client Stakeholders.}
+
+\end{document}

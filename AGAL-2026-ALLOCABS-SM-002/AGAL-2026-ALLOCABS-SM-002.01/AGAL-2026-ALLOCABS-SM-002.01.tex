@@ -180,7 +180,7 @@
 
   \node[anchor=north west, text=mutedblue, align=left, text width=11.5cm]
      at ([xshift=3.15cm,yshift=-17.3cm]current page.north west)
-     {\fontsize{11.5}{16}\selectfont A phased monitoring platform roadmap, starting with Phase 1 and evolving toward multi-tenant SaaS and enterprise self-service.};
+     {\fontsize{11.5}{16}\selectfont A monitoring platform roadmap scaling from Phase 1 to multi-tenant SaaS and enterprise self-service.};
 
   \node[anchor=south west, text=mutedblue, align=left, text width=15.8cm]
      at ([xshift=2.6cm,yshift=2.9cm]current page.south west)
@@ -248,7 +248,7 @@ Automated email alerts triggered the moment a monitored site becomes unavailable
 \end{recbox}
 
 \subsection{Strategic Approach}
-The initial release is deliberately narrow: establish a reliable production system immediately, validate the operating model, and avoid overloading the first engagement. Phase 2 and Phase 3 are designed as optional, independent engagements subject to separate written approval.\footnote{The commercial proposal explicitly states that each phase operates as an independent engagement.}
+The initial release is deliberately narrow: Establish a reliable production system immediately, validate the operating model, and avoid overloading the first engagement. Phase 2 and Phase 3 are designed as optional, independent engagements subject to separate written approval.\footnote{The commercial proposal explicitly states that each phase operates as an independent engagement.}
 
 
 % ================= SECTION 2: PHASE 1 SOLUTION =================
@@ -300,7 +300,7 @@ The initial release is deliberately narrow: establish a reliable production syst
 % ================= SECTION 3: ROADMAP =================
 \section{Product Roadmap}
 
-The product lifecycle is strategically divided into three business stages: establish a reliable monitoring baseline (Phase 1), productize into a scalable commercial SaaS offering (Phase 2), and finally, introduce enterprise-grade governance and self-service capabilities (Phase 3).
+The product lifecycle is strategically divided into three business stages: Establish a reliable monitoring baseline (Phase 1), productize into a scalable commercial SaaS offering (Phase 2), and finally, introduce enterprise-grade governance and self-service capabilities (Phase 3).
 
 \vspace{1em}
 \subsection{Strategic Trajectory}
@@ -320,9 +320,16 @@ The product lifecycle is strategically divided into three business stages: estab
 
 % --- PHASE 2 SUBSECTION ---
 \subsection{Phase 2 -- Scale (Multi-Tenant SaaS)}
-Phase 2 transforms the internal monitoring tool into a repeatable, commercial SaaS product. It shifts the architecture from a single-organization deployment to a secure multi-tenant environment, allowing Sarva Creation to manage multiple customer accounts with strict logical data separation. 
+Phase 2 evolves the platform from an internal utility into a scalable commercial SaaS. It introduces a secure multi-tenant architecture, allowing Sarva Creation to monitor hundreds of client environments across different cloud providers from a single command center.
 
-It also expands the monitoring engine to include native connectors for mainstream cloud providers such as AWS and Microsoft Azure, alongside the existing Hostinger integration.
+\vspace{0.5em}
+\begin{recbox}{Value Delivered}{Unlocking Managed Services}
+\begin{itemize}
+  \item \textbf{Client Separation:} Manage multiple customer accounts within a single platform, backed by strict logical data isolation.
+  \item \textbf{Cloud Agnostic:} Seamlessly monitor beyond Hostinger by adding native API connectors for AWS and Microsoft Azure.
+  \item \textbf{Centralized Oversight:} Dedicated super-admin controls give your core team instant visibility into global alerts and uptime metrics.
+\end{itemize}
+\end{recbox}
 
 \vspace{0.5em}
 \begin{issuebox}{Phase 2 Connector Add-On}{Custom Provider R\&D}
@@ -336,38 +343,24 @@ Where a required cloud provider or hosting connector falls outside the agreed ma
 
 % --- PHASE 3 SUBSECTION ---
 \subsection{Phase 3 -- Govern (Enterprise Self-Service)}
-Phase 3 elevates the platform to an enterprise-grade standard, minimizing administrative overhead for the core team by introducing self-service capabilities. 
+Phase 3 elevates the platform to an enterprise-grade standard. By introducing self-service tools, it removes administrative bottlenecks for your internal team while empowering clients to govern their own monitoring ecosystems securely.
 
-This phase focuses on organizational autonomy, allowing client teams to manage their own onboarding, configure custom alerting policies, and define granular Role-Based Access Control (RBAC). Furthermore, it introduces comprehensive audit trails and compliance-oriented reporting, satisfying the requirements of mature enterprise and developer teams.
+\vspace{0.5em}
+\begin{recbox}{Enterprise Upgrades}{Zero-Touch Operations \& Security}
+\begin{itemize}
+  \item \textbf{Client Autonomy:} End-users can manage their own onboarding, configure custom alert routing, and set specific thresholds without submitting support tickets.
+  \item \textbf{Granular Security (RBAC):} Advanced permission matrices allow organizations to map access controls directly to their internal hierarchies.
+  \item \textbf{Audit \& Compliance:} Comprehensive activity logs and automated SLA reporting satisfy the requirements of mature enterprise and developer teams.
+\end{itemize}
+\end{recbox}
 
 % ================= SECTION 4: DELIVERY & COMMERCIALS =================
-\clearpage
 \section{Delivery, Investment \& Trust}
 
-\subsection{Phase 1 Delivery Plan}
+\subsection{Commercial Snapshot (Phase 1)}
 \vspace{0.5em}
 \begin{center}
-\begin{tikzpicture}[
-  node distance=0.7cm, 
-  box/.style={draw=linegray, line width=0.8pt, rounded corners=3pt, fill=white, minimum width=3.5cm, minimum height=1.5cm, align=center, text=navydark, font=\sffamily\fontsize{9}{12}\selectfont},
-  arrow/.style={-{Latex[length=2.5mm]}, draw=amber, line width=1.2pt}
-]
-  \node[box] (w1) {\textbf{WEEK 1}\\[4pt] Requirements \& Access\\Architecture \& UI};
-  \node[box, right=of w1] (w2) {\textbf{WEEK 2}\\[4pt] Hostinger Connectivity\\Inventory \& Checks};
-  \node[box, right=of w2] (w3) {\textbf{WEEK 3}\\[4pt] Dashboard \& Warnings\\Alert Workflow};
-  \node[box, right=of w3] (w4) {\textbf{WEEK 4}\\[4pt] Testing \& Deployment\\Client Handover};
-  
-  \draw[arrow] (w1) -- (w2);
-  \draw[arrow] (w2) -- (w3);
-  \draw[arrow] (w3) -- (w4);
-\end{tikzpicture}
-\end{center}
-\vspace{1.5em}
-
-\subsection{Commercial Snapshot}
-\vspace{0.5em}
-\begin{center}
-\begin{valuecard}{Phase 1 Investment}
+\begin{valuecard}{Phase 1 Capital}
 \textbf{INR 1,15,000}\\[4pt]
 \textcolor{softgray}{\fontsize{8}{10}\selectfont (Exclusive of applicable taxes)}
 \end{valuecard}
@@ -382,6 +375,23 @@ This phase focuses on organizational autonomy, allowing client teams to manage t
 \textcolor{softgray}{\fontsize{8}{10}\selectfont (Monitoring engine \& alerts)}
 \end{valuecard}
 \end{center}
+\vspace{1.5em}
+
+\subsection{Total Investment Roadmap}
+\vspace{0.5em}
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.45\linewidth}>{\raggedleft\arraybackslash}p{0.25\linewidth}@{}}
+\rowcolor{navy}
+\thd{PROJECT PHASE} & \thd{CAPABILITY MILESTONE} & \thd{EST. INVESTMENT} \\
+\midrule
+\textbf{Phase 1 -- Monitor} & Dedicated Hostinger baseline, dashboard, and alerts & \textbf{INR 1,15,000} \\
+\rowcolor{tabletint}
+\textbf{Phase 2 -- Scale} & Multi-tenant SaaS architecture and centralized alerts & \textbf{INR 6,00,000} \\
+\textbf{Phase 2 Add-On} & Custom cloud provider connector R\&D (per provider) & \textbf{INR 60,000} \\
+\rowcolor{tabletint}
+\textbf{Phase 3 -- Govern} & Enterprise self-service, rich RBAC, and audit trails & \textbf{INR 11,00,000} \\
+\bottomrule
+\end{tabular}
 \vspace{1.5em}
 
 \begin{recbox}{Controlled Execution}{Clear Outcomes, Firm Boundaries}
@@ -409,29 +419,33 @@ This phase focuses on organizational autonomy, allowing client teams to manage t
 \bottomrule
 \end{tabular}
 
-\vspace{2.5em}
-\subsection{Next Steps \& Project Initiation}
-\vspace{0.5em}
-\begin{center}
-\begin{tikzpicture}[
-  node distance=0.6cm, 
-  stepstyle/.style={draw=linegray, line width=0.8pt, rounded corners=3pt, fill=white, minimum width=3.6cm, minimum height=0.9cm, align=center, text=navydark, font=\sffamily\bfseries\fontsize{8.5}{10}\selectfont}, 
-  arrow/.style={-{Latex[length=2mm]}, draw=amber, line width=1.2pt}
-]
-  \node[stepstyle] (a) {1. Approve Phase 1};
-  \node[stepstyle, right=of a] (b) {2. Confirm Inventory};
-  \node[stepstyle, right=of b] (c) {3. Validate Access};
-  \node[stepstyle, right=of c] (d) {4. Project Kickoff};
-  
-  \draw[arrow] (a) -- (b); 
-  \draw[arrow] (b) -- (c); 
-  \draw[arrow] (c) -- (d);
-\end{tikzpicture}
-\end{center}
-\vspace{1em}
+% ================= SECTION 5: STRATEGIC VALUE & ROI =================
+\clearpage
+\section{Strategic Value \& ROI}
 
-\noindent\textbf{Decision — Start with a focused first release.} 
-Formal approval of this document confirms the website inventory, available Hostinger interfaces, alert thresholds, deployment arrangements, and acceptance criteria. Engineering commences immediately following the receipt of the agreed advance payment and required technical access.
+The platform's roadmap is designed to deliver compounding returns at each stage of operational maturity. By aligning technical milestones with business scaling phases, the architecture ensures that infrastructure investments directly support revenue protection and operational efficiency.
+
+\vspace{1em}
+\subsection{Compounding Business Value}
+\vspace{0.5em}
+
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.38\linewidth}>{\raggedright\arraybackslash}p{0.38\linewidth}@{}}
+\rowcolor{navy}
+\thd{MILESTONE} & \thd{OPERATIONAL VALUE} & \thd{FINANCIAL \& ROI IMPACT} \\
+\midrule
+\textbf{Phase 1} \newline Monitor & 
+\textbf{Immediate visibility and risk reduction.} Establishes a centralized baseline, eliminating manual checks and blind spots across current Hostinger assets. & 
+\textbf{Protects baseline revenue.} Reclaims expensive engineering hours spent on manual diagnostics and minimizes the financial impact of undetected, prolonged downtime. \\
+\rowcolor{tabletint}
+\textbf{Phase 2} \newline Scale & 
+\textbf{Multi-tenant leverage.} Transitions the architecture to securely support multiple client environments and diverse cloud ecosystems (AWS, Azure) simultaneously. & 
+\textbf{Enables non-linear growth.} Allows the core team to manage exponential client growth without a proportional increase in headcount; unlocks potential to offer monitoring as a managed service. \\
+\textbf{Phase 3} \newline Govern & 
+\textbf{Zero-touch administration.} Decentralizes management by allowing client teams to self-serve onboarding, alerts, and access controls. & 
+\textbf{Enterprise market readiness.} Drastically reduces internal administrative overhead while providing the strict audit trails necessary to secure larger, compliance-driven contracts. \\
+\bottomrule
+\end{tabular}
 
 \vfill
 \noindent{\color{linegray}\rule{\linewidth}{0.6pt}}\\[6pt]
